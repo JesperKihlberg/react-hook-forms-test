@@ -1,14 +1,20 @@
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { MyFormProps } from "./PaymentForm";
 
-export interface FormProps<P> {
+export interface FormProps {
   children: React.ReactNode;
 }
-function Form<P>({ children }: FormProps<P>) {
-  const { handleSubmit } = useForm<P>();
-  const onSubmit: SubmitHandler<P> = (data) => console.log("Hej", data);
+function Form({ children }: FormProps) {
+  const methods = useForm<MyFormProps>();
 
-  return <form onSubmit={handleSubmit(onSubmit)}>{children}</form>;
+  const onSubmit: SubmitHandler<MyFormProps> = (data) => console.log("Hej", data);
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+    </FormProvider>
+  );
 }
 
 export default Form;

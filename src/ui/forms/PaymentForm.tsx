@@ -4,27 +4,27 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { useForm } from "react-hook-form";
+import ConnectForm from "./ConnectForm";
 
-export interface MyFormProps {
+export type MyFormProps = {
   cardName: string;
-}
+  cardNumber: string;
+};
+
+type FormPropKeys = keyof MyFormProps; // "cardName"| "cardNumber";
+
+type FormFieldData = {
+  [key in FormPropKeys]: { label: string };
+};
 export default function PaymentForm() {
-  const { register } = useForm<MyFormProps>();
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField
-            {...register("cardName", { required: true, maxLength: 20 })}
-            // id="cardName"
-            label="Name on card"
-            fullWidth
-            autoComplete="cc-name"
-          />
+          {newFunction()}
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField id="cardNumber" label="Card number" fullWidth autoComplete="cc-number" />
@@ -42,6 +42,26 @@ export default function PaymentForm() {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
+  );
+}
+function newFunction() {
+  return (
+    <ConnectForm>
+      {({ register, formState }) => {
+        const cardnameError = !!formState.errors["cardName"];
+        return (
+          <TextField
+            {...register("cardName", { required: "You need it", maxLength: { value: 20, message: "Too long" } })}
+            // id="cardName"
+            label="Name on card"
+            fullWidth
+            autoComplete="cc-name"
+            helperText={cardnameError && formState.errors["cardName"].message}
+            error={cardnameError}
+          />
+        );
+      }}
+    </ConnectForm>
   );
 }

@@ -19,16 +19,16 @@ const useStyles = makeStyles((theme) => ({
 const MainPage: React.FC = () => {
   const classes = useStyles();
 
-  const MyForm = (props: FormProps<MyFormProps>) => Form<MyFormProps>(props);
+  //   const MyForm = (props: FormProps<MyFormProps>) => Form<MyFormProps>(props);
   return (
     <main className={classes.layout}>
       <FormContainer>
-        <MyForm>
+        <Form>
           <PaymentForm />
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
-        </MyForm>
+        </Form>
       </FormContainer>
     </main>
   );
