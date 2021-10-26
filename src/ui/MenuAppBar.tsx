@@ -1,36 +1,8 @@
-import {
-  Box,
-  FormGroup,
-  FormControlLabel,
-  Switch,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-  AppBar,
-  createStyles,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
-import { AccountCircle, Menu as MenuIcon } from "@material-ui/icons";
+import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
+import { AppBar, Toolbar, IconButton, Typography, Menu, MenuItem } from "@mui/material";
 import React from "react";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  })
-);
 const MenuAppBar: React.FC = () => {
-  const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -44,15 +16,13 @@ const MenuAppBar: React.FC = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            React Hook Forms
-          </Typography>
+          <Typography variant="h6">React Hook Forms</Typography>
           {auth && (
             <div>
               <IconButton
@@ -91,3 +61,6 @@ const MenuAppBar: React.FC = () => {
 };
 
 export default MenuAppBar;
+function useClasses(styles: (theme: any) => never) {
+  throw new Error("Function not implemented.");
+}

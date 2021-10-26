@@ -1,34 +1,20 @@
-import { Button, makeStyles } from "@material-ui/core";
 import React from "react";
 import FormContainer from "../ui/containers/FormContainer";
-import Form, { FormProps } from "../ui/forms/Form";
-import PaymentForm, { MyFormProps } from "../ui/forms/PaymentForm";
+import Form, { FormProps } from "../ui/forms/form/Form";
+import PaymentFormControls, { PaymentFormProps } from "../forms/payment-form/PaymentFormControls";
+import { Button, Theme } from "@mui/material";
 
-const useStyles = makeStyles((theme) => ({
-  layout: {
-    width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  },
-}));
+const TypedForm: (props: FormProps) => JSX.Element = (props) => Form<PaymentFormProps>(props);
 const MainPage: React.FC = () => {
-  const classes = useStyles();
-
-  //   const MyForm = (props: FormProps<MyFormProps>) => Form<MyFormProps>(props);
   return (
-    <main className={classes.layout}>
+    <main>
       <FormContainer>
-        <Form>
-          <PaymentForm />
+        <TypedForm>
+          <PaymentFormControls />
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
-        </Form>
+        </TypedForm>
       </FormContainer>
     </main>
   );
