@@ -34,11 +34,12 @@ export default function PaymentFormControls() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TypedFormDatePicker
+            initialValue={new Date("01-01-2022")}
             fieldName="cardExpiryDate"
             fieldOptions={{
               required: "You need it",
             }}
-            label="Card name"
+            label="Card expiry date"
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -48,6 +49,16 @@ export default function PaymentFormControls() {
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}
             label="Remember credit card details for next time"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TypedFormDatePicker
+            initialValue={new Date("01-01-2022")}
+            fieldName="cardStartDate"
+            fieldOptions={{
+              required: "You need it",
+            }}
+            label="Card start date"
           />
         </Grid>
       </Grid>

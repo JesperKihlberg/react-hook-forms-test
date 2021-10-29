@@ -13,12 +13,7 @@ function FormTextField<TFieldName extends string, TFieldValues>(props: FormTextF
       {({ register, formState }) => {
         const fieldError = formState.errors[fieldName];
         return (
-          <TextField
-            {...register(fieldName, fieldOptions)}
-            {...rest}
-            helperText={fieldError && formState.errors[fieldName].message}
-            error={!!fieldError}
-          />
+          <TextField {...register(fieldName, fieldOptions)} {...rest} helperText={fieldError && fieldError.message} error={!!fieldError} />
         );
       }}
     </ConnectForm>

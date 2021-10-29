@@ -1,32 +1,31 @@
 import { DesktopDatePicker, DesktopDatePickerProps, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { FieldValues, FormState, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import ConnectForm from "../form/ConnectForm";
 import { BaseFormFieldProps } from "./FieldOptions";
 
 export type FormDatePickerProps<TFieldName extends string, Date> = BaseFormFieldProps<TFieldName, Date> &
-  Pick<DesktopDatePickerProps, "label" | "autoFocus" | "className">;
+  Pick<DesktopDatePickerProps, "label" | "autoFocus" | "className"> & { initialValue: Date };
 
-function FormDatePicker<TFieldName extends string, Date>(props: FormDatePickerProps<TFieldName, Date>) {
-  const { fieldName, fieldOptions, ...rest } = props;
+function FormDatePicker<TFieldName extends string>(props: FormDatePickerProps<TFieldName, Date>) {
+  const { fieldName, fieldOptions, initialValue, ...rest } = props;
+
   return (
     <ConnectForm>
-      {({ register, formState }) => {
-        const fieldError = formState.errors[fieldName];
+      {({ register, formState, setValue, watch }) => {
         return (
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-              value={""}
-              {...(register(fieldName, fieldOptions) as unknown as Pick<DesktopDatePickerProps, "onChange">)}
-              {...rest}
-              label="Date desktop"
-              inputFormat="dd/MM/yyyy"
-              renderInput={(params) => (
-                <TextField {...params} helperText={fieldError && formState.errors[fieldName].message} error={!!fieldError} />
-              )}
-            />
-          </LocalizationProvider>
+          <InnerDatePicker
+            register={register as unknown as UseFormRegister<FieldValues>}
+            fieldName={fieldName}
+            fieldOptions={fieldOptions}
+            formState={formState}
+            setValue={setValue}
+            watch={watch}
+            initialValue={initialValue}
+            rest={rest}
+          />
         );
       }}
     </ConnectForm>
@@ -35,4 +34,42 @@ function FormDatePicker<TFieldName extends string, Date>(props: FormDatePickerPr
 
 export default FormDatePicker;
 
-export {};
+interface InnerDatePickerProps {
+  register: any;
+  fieldName: string;
+  fieldOptions: any;
+  rest: { label?: React.ReactNode; autoFocus?: boolean | undefined; className?: string | undefined };
+  formState: FormState<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
+  initialValue: Date;
+}
+function InnerDatePicker({ register, fieldName, fieldOptions, rest, formState, setValue, watch, initialValue }: InnerDatePickerProps) {
+  const dateValue = watch(fieldName, initialValue);
+
+  useEffect(() => {
+    register(fieldName, fieldOptions);
+  }, [register]);
+  useEffect(() => {
+    setValue(fieldName, initialValue);
+  }, [initialValue]);
+
+  const fieldError = formState.errors[fieldName];
+  const handleChange = (e: any) => {
+    setValue(fieldName, e);
+  };
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DesktopDatePicker
+        value={dateValue}
+        onChange={handleChange}
+        {...{ ...rest, defaultValue: null }}
+        inputFormat="dd/MM/yyyy"
+        renderInput={(params) => {
+          return <TextField {...params} type="date" helperText={fieldError && fieldError.message} error={!!fieldError} />;
+        }}
+      />
+    </LocalizationProvider>
+  );
+}
