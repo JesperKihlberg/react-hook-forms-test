@@ -52,7 +52,7 @@ function InnerDatePicker({ register, fieldName, fieldOptions, rest, formState, s
   }, [register]);
   useEffect(() => {
     setValue(fieldName, initialValue);
-  }, [initialValue]);
+  }, []);
 
   const fieldError = formState.errors[fieldName];
   const handleChange = (e: any) => {
