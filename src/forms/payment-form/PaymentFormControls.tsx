@@ -45,12 +45,6 @@ export default function PaymentFormControls() {
         <Grid item xs={12} md={6}>
           <TextField id="cvv" label="CVV" helperText="Last three digits on signature strip" fullWidth autoComplete="cc-csc" />
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
         <Grid item xs={12} md={6}>
           <TypedFormDatePicker
             initialValue={new Date("01-01-2022")}
@@ -59,6 +53,12 @@ export default function PaymentFormControls() {
               required: "You need it",
             }}
             label="Card start date"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
+            label="Remember credit card details for next time"
           />
         </Grid>
       </Grid>
