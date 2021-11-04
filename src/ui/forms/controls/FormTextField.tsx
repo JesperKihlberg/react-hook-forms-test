@@ -29,6 +29,4 @@ export function InnerFormTextField<TFieldValues>(props: InnerFormTextFieldProps<
   return <TextField {...register(fieldName, fieldOptions)} {...rest} helperText={fieldError && fieldError.message} error={!!fieldError} />;
 }
 
-//test the InnerFormTextField component
-
 export default FormTextField;
