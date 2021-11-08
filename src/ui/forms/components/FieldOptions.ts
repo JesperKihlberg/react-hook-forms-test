@@ -1,4 +1,4 @@
-import { FieldPath, RegisterOptions } from "react-hook-form";
+import { FieldPath, FieldValues, RegisterOptions, UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 export type FieldOptions<TFieldValues> = RegisterOptions<TFieldValues, FieldPath<TFieldValues>> | undefined;
 

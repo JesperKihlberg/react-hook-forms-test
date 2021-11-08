@@ -1,11 +1,11 @@
 import React from "react";
-import FormTextField, { FormTextFieldProps } from "../../../ui/forms/controls/FormTextField";
+import FormTextField, { FormTextFieldProps } from "../../../ui/forms/components/FormTextField";
 
 export type PaymentFormTextProps = {
   cardName: string;
 };
 type PaymentFormTextKeys = keyof PaymentFormTextProps;
 
-const TypedPaymentFormTextField: (props: FormTextFieldProps<PaymentFormTextKeys>) => JSX.Element = FormTextField;
+const PaymentFormTextField: (props: FormTextFieldProps<PaymentFormTextKeys>) => JSX.Element = FormTextField;
 
-export default TypedPaymentFormTextField;
+export default PaymentFormTextField;

@@ -1,7 +1,7 @@
 import { Typography, Grid, TextField, FormControlLabel, Checkbox } from "@mui/material";
 import React from "react";
 import TypedFormDatePicker, { PaymentFormDateProps } from "./controls/TypedPaymentFormDatePicker";
-import TypedPaymentFormTextField, { PaymentFormTextProps } from "./controls/TypedPaymentFormTextField";
+import PaymentFormTextField, { PaymentFormTextProps } from "./controls/TypedPaymentFormTextField";
 
 export type PaymentFormProps = PaymentFormTextProps &
   PaymentFormDateProps & {
@@ -18,7 +18,7 @@ export default function PaymentFormControls() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TypedPaymentFormTextField
+          <PaymentFormTextField
             fieldName="cardName"
             fieldOptions={{
               required: "You need it",

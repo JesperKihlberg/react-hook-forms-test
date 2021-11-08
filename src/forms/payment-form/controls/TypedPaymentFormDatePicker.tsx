@@ -1,11 +1,12 @@
-import FormDatePicker, { FormDatePickerProps } from "../../../ui/forms/controls/FormDatePicker";
+import React from "react";
+import FormDatePicker, { FormDatePickerProps } from "../../../ui/forms/components/FormDatePicker";
 
 export type PaymentFormDateProps = {
   cardExpiryDate: string;
   cardStartDate: string;
 };
-type PaymentFormTextKeys = keyof PaymentFormDateProps;
+type PaymentFormDateKeys = keyof PaymentFormDateProps;
 
-const TypedFormDatePicker: (props: FormDatePickerProps<PaymentFormTextKeys, Date>) => JSX.Element = FormDatePicker;
+const TypedFormDatePicker: (props: FormDatePickerProps<PaymentFormDateKeys, Date>) => JSX.Element = FormDatePicker;
 
 export default TypedFormDatePicker;
