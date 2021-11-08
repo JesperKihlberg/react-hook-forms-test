@@ -9,6 +9,7 @@
 - Written in TypeScript
 - Basic form functionality using React Hook Form
 - Using Material UI 5 as design system
+- Testing using Jest and react testing library
 
 ## Requirements
 
